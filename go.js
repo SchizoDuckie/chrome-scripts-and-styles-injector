@@ -90,7 +90,7 @@ function createOptionsFromText(selectObj,optionsText) {
             if(parsed[2].charAt(0)=='*') {
                 selectObj.options[optionCounter-1].text=selectObj.options[optionCounter-1].text.substr(1);
                 selectObj.selectedIndex=optionCounter-1;
-                $(selectObj).select2("val", selectObj.options[optionCounter-1].text.substr(1));
+                $(selectObj).select2("val", parsed[1]);
             }
         }
     }
