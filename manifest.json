@@ -1,0 +1,20 @@
+{
+    "name": "Pimp My TR",
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "Select2's voor in TR! Met fuzzy search!",
+    "permissions": ["tabs"],
+    "content_scripts": [{
+        "matches": ["*://tr.samson-it.nl/tijdregistratie/dag.php"],
+        "js": ["script.js"],
+        "all_frames": true
+    }],
+    "browser_action": {
+        "default_icon": "logo.png",
+        "default_popup": "minitr.html"
+    },
+    "icons": {
+        "48": "logo.png"
+    },
+    "web_accessible_resources": ["select2.png", "select2-spinner.gif", "script.js", "select2.min.js", "select2.min.css", "go.js"]
+}
