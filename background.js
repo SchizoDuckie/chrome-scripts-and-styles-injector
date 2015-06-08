@@ -5,9 +5,15 @@ var browserListener = function(tab) {
     if (match && tab.status === 'complete') {
         //We insert the css
 
-        chrome.tabs.insetJavascript(tab.id, {
+        chrome.tabs.insertJavascript(tab.id, {
             file: "script.js"
         });
+        
+    } else {
+        if(tab.url.indexOf('support.samson-it.nl') > -1) {
+            var ticket = tab.url.match(/id=([0-9]+)/)[0];
+            localStorage.setItem('lastOpenTicket', ticket);
+        }
     }
 };
 

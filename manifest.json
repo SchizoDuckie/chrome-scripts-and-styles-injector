@@ -3,9 +3,9 @@
     "version": "1.0",
     "manifest_version": 2,
     "description": "Select2's voor in TR! Met fuzzy search!",
-    "permissions": ["tabs"],
+    "permissions": ["tabs", "activeTab"],
     "content_scripts": [{
-        "matches": ["*://tr.samson-it.nl/tijdregistratie/dag.php"],
+        "matches": ["*://tr.samson-it.nl/tijdregistratie/dag.php*"],
         "js": ["script.js"],
         "all_frames": true
     }],
