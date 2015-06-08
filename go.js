@@ -64,8 +64,9 @@ if(lastOpened !== null) {
     var diff = new Date().getTime() - parseInt(lastOpened);
     var inputs = $('.arbeidDuur');
     var lastOne = inputs[inputs.length -1];
-    if(diff == 0) return;
-    lastOne.value = new Number(diff / 60 / 60 / 60 / 60).toFixed(2);
+    if(diff !== 0) {
+        lastOne.value = new Number(diff / 60 / 60 / 60 / 60).toFixed(2);    
+    }
 }
 
 document.querySelector('form').addEventListener('submit', function() {
