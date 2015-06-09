@@ -5,10 +5,12 @@ try {
     // commence injecting custom css.
     console.log("Pimping Your TR?", window.frames.top.location.href);
 } catch (E) {
-    isExtension = true;
-}
+    // if we detect we are in extension mode (the popup window), we inject some styles to override stuff
+    // and hide columns.
 
-if (isExtension) {
+    isExtension = true;
+    
+
     console.log("Yepz. Commence styling.");
     var c = document.createElement('style');
     c.type = 'text/css';
@@ -31,69 +33,97 @@ if (isExtension) {
     document.body.appendChild(c);
 }
 
-//$('input.')
-var fuzzy = function(term, text, opt) {
-    return text.toUpperCase().match(term.toUpperCase().replace(/\s+/g, '.+'));
-};
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        console.log(sender.tab ?
+            "from a content script:" + sender.tab.url :
+            "from the extension");
+        console.log("request", sender);
+        if (request.greeting == "hello")
+            sendResponse({
+                farewell: "goodbye"
+            });
+    });
 
-$('select:not(.projecten)').select2({
-    matcher: fuzzy,
-    width: '49%'
-})
 
-$('select.projecten').select2({
-    matcher: fuzzy,
-    width: '100%'
-})
 
-$('select.projecten').change(function(e) {
-
-    setTimeout(function() {
-        $('select.projectOnderdelen').select2({
-            matcher: fuzzy,
-            width: '40%'
-        });
-
-    }, 50);
-
-});
-
-var lastOpened = localStorage.getItem('lastOpened');
-
-if (lastOpened !== null) {
-    var diff = new Date().getTime() - parseInt(lastOpened);
-    var inputs = $('.arbeidDuur');
-    var lastOne = inputs[inputs.length - 1];
-    if (diff !== 0) {
-        lastOne.value = new Number(diff / 60 / 60 / 60 / 60).toFixed(2);
+storage.get('pimp_always', function(value) {
+    // no pimping if the setting has been disabled.
+    if (value.pimp_always === false && !isExtension) {
+        return;
     }
-}
 
-document.querySelector('form').addEventListener('submit', function() {
-    localStorage.setItem('lastOpened', new Date().getTime());
-    setTimeout(function() {
-        window.close();
-    }, 500);
-});
+    console.info("TR opened in regular browser window and disabled by settings. not pimping.");
 
-
-/**
- * Options-setter patched so that it selects the default value.
- */
-function createOptionsFromText(selectObj, optionsText) {
-    var optionCounter = 0;
-    var reg = /^([^=]*)=(.*)$/;
-    selectObj.options.length = 0;
-    var lines = optionsText.split(/[\n\r]|[\n]/);
-    for (i = 0; i < lines.length; i++) {
-        var parsed = reg.exec(lines[i]);
-        if (parsed) {
-            selectObj.options[optionCounter++] = new Option(parsed[2], parsed[1]);
-            if (parsed[2].charAt(0) == '*') {
-                selectObj.options[optionCounter - 1].text = selectObj.options[optionCounter - 1].text.substr(1);
-                selectObj.selectedIndex = optionCounter - 1;
-                $(selectObj).select2("val", parsed[1]);
+    /**
+     * Options-setter patched so that it selects the default value for select2's
+     */
+    createOptionsFromText = function(selectObj, optionsText) {
+        var optionCounter = 0;
+        var reg = /^([^=]*)=(.*)$/;
+        selectObj.options.length = 0;
+        var lines = optionsText.split(/[\n\r]|[\n]/);
+        for (i = 0; i < lines.length; i++) {
+            var parsed = reg.exec(lines[i]);
+            if (parsed) {
+                selectObj.options[optionCounter++] = new Option(parsed[2], parsed[1]);
+                if (parsed[2].charAt(0) == '*') {
+                    selectObj.options[optionCounter - 1].text = selectObj.options[optionCounter - 1].text.substr(1);
+                    selectObj.selectedIndex = optionCounter - 1;
+                    $(selectObj).select2("val", parsed[1]);
+                }
             }
         }
-    }
-}
+    };
+
+    var fuzzy = function(term, text, opt) {
+        return text.toUpperCase().match(term.toUpperCase().replace(/\s+/g, '.+'));
+    };
+
+    $('select:not(.projecten)').select2({
+        matcher: fuzzy,
+        width: '49%'
+    });
+
+    $('select.projecten').select2({
+        matcher: fuzzy,
+        width: '100%'
+    });
+
+    $('select.projecten').change(function(e) {
+
+        setTimeout(function() {
+            $('select.projectOnderdelen').select2({
+                matcher: fuzzy,
+                width: '40%'
+            });
+
+        }, 50);
+    });
+
+    storage.get('lastOpened', function(lastOpened) {
+
+        if (lastOpened !== null) {
+            var diff = new Date().getTime() - parseInt(lastOpened);
+            var inputs = $('.arbeidDuur');
+            var lastOne = inputs[inputs.length - 1];
+            if (diff !== 0) {
+                var val = diff / 60 / 60 / 60 / 60;
+                lastOne.value = diff.toFixed(2);
+            }
+        }
+    });
+
+    //document.querySelector('form').addEventListener('submit', function() {
+    setTimeout(function() {
+        storage.set({
+            'lastOpened': new Date().getTime()
+        }, function() {
+            if (isExtension) {
+                window.close();
+            }
+        });
+    }, 1500);
+    //});
+
+});
