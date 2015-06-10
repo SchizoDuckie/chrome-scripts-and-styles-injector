@@ -6,12 +6,12 @@ if (!localStorage.getItem('tahoma')) {
 }
 window.onload = function() {
 
-    document.getElementById('checkme').checked = localStorage.getItem('pimp_always');
-    document.getElementById('tahoma').checked = localStorage.getItem('tahoma');
+    document.getElementById('checkme').checked = localStorage.getItem('pimp_always') == '1';
+    document.getElementById('tahoma').checked = localStorage.getItem('tahoma') == '1';
 
 
     document.getElementById('checkme').onclick = function() {
-        localStorage.setItem('pimp_always', this.checked ? 1 : 0);
+        localStorage.setItem('pimp_always', this.checked ? '1' : '0');
     };
 
     document.getElementById('tahoma').onclick = function() {

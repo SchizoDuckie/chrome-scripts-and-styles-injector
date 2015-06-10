@@ -29,12 +29,7 @@ function override_tahoma() {
     document.body.innerHTML += '<style>* { font-family: sans-serif !important; }</style>';
 }
 
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    console.log(sender.tab ?
-        "from a content script:" + sender.tab.url :
-        "from the extension");
-    console.log("request", message, sender);
-
+chrome.runtime.onMessage.addListener(function(message, sender) {
     if (message.you_can) {
         switch (message.you_can) {
             case 'pimp':
@@ -58,33 +53,33 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         switch (message.here_u_haz) {
             case 'active_ticket':
                 console.warn("Got active ticket!", message);
+                    
+                
                 var inputs = document.querySelectorAll('.arbeidOmschrijving');
                 var input = inputs[inputs.length - 1];
-                input.value = '#' + message.ticket.split(':')[0];
-                input.focus();
+                input.value = '#' + message.ticket.split(':')[0].substring(-5)+'.';
+                
                 window.scrollTo(0, document.body.scrollHeight);
+                
                 break;
             default:
                 console.error("Unhandled here u haz!", message);
                 break;
         }
     } else {
-
-        console.error("Unhandled message came in!", JSON.stringify(message));
-
+        //console.error("Unhandled message came in!", JSON.stringify(message));
     }
-    sendResponse();
 });
 
 
-chrome.runtime.sendMessage('gephjjdbcmmbnkdinjfhbjninhmbheeh', {
+chrome.runtime.sendMessage(chrome.runtime.id, {
     can_i: 'pimp'
 });
 
-chrome.runtime.sendMessage('gephjjdbcmmbnkdinjfhbjninhmbheeh', {
+chrome.runtime.sendMessage(chrome.runtime.id, {
     can_i: 'style_for_tab'
 });
 
-chrome.runtime.sendMessage('gephjjdbcmmbnkdinjfhbjninhmbheeh', {
+chrome.runtime.sendMessage(chrome.runtime.id, {
     can_i_haz: 'active_ticket'
 });

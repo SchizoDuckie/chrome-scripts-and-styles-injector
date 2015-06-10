@@ -20,4 +20,4 @@ th:last-child { overflow: hidden; font-size: 9px; -webkit-transform: rotate(-90d
 #mainContent h2 { display:none; } 
 th, span, input { font-family: sans-serif} 
 input[id^="arbeidfacturabel_"] { display:block; width: 30px; float:left; }
-label[for^="arbeidfacturabel_"] { display:inline-block; float: left; 
+label[for^="arbeidfacturabel_"] { display:inline-block; float: left; }

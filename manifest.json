@@ -11,13 +11,14 @@
         ],
         "all_frames": true,
         "css": ["select2.min.css"],
-        "js": ["listener.js"],
+        "js": ["jquery.min.js","listener.js"],
         "run_at": "document_idle"
     }],
     "background": {
         "scripts": [
             "background.js"
-        ]
+        ],
+        "persistent": true
     },
     "browser_action": {
         "default_icon": "logo.png",

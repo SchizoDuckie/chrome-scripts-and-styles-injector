@@ -1,3 +1,5 @@
+console.info("Executing pimp script");
+
     /**
      * Options-setter patched so that it selects the default value for select2's
      */
@@ -56,3 +58,9 @@
         }
         localStorage.setItem('lastOpened', new Date().getTime());
     }*/
+
+
+console.log('firing keypress!');
+var e = $.Event('keyup');
+e.keyCode = 190; // Character '.'
+$(".arbeidOmschrijving").last().trigger(e);

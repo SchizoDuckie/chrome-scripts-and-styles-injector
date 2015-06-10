@@ -1,31 +1,3 @@
-// set some default settings.
-/* if (!('pimp_always' in localStorage)) {
-    chrome.storage.local.set({
-        'pimp_always': 1
-    }, function() {
-
-    });
-}
-
-var browserListener = function(tab) {
-    var regexPage = new RegExp(/https:\/\/tr.samson-it.nl\//); // We use a regular expresion to check which page was given.
-    var match = regexPage.exec(tab.url); // We then check if the given page matches our expression.
-    // If it matches and the status of the tab is complete...
-    if (match && tab.status === 'complete') {
-        //We insert the css
-        chrome.tabs.insertJavascript(tab.id, {
-            file: "script.js"
-        });
-    } else {
-        if (tab.url.indexOf('support.samson-it.nl') > -1) {
-            var ticket = tab.url.match(/id=([0-9]+)/)[0];
-            chrome.storage.local.set({
-                'lastOpenTicket': ticket
-            }, function() {});
-        }
-    }
-};*/
-
 console.log("Im the background page, yay!");
 
 var injectorListener = function(request, sender, sendResponse) {
@@ -43,13 +15,11 @@ var injectorListener = function(request, sender, sendResponse) {
                     }).pop();
                     if (activeTab && activeTab.url && activeTab.url.indexOf('view.php?id=') > -1) {
                         console.log("Here u haz tabs: ", activeTab);
-                        chrome.extension.sendMessage('gephjjdbcmmbnkdinjfhbjninhmbheeh', {
+                        chrome.extension.sendMessage(chrome.runtime.id, {
                             here_u_haz: 'active_ticket',
                             ticket: activeTab.title
                         }, function(response) {});
-
                     }
-
                 });
                 break;
         }
@@ -62,7 +32,7 @@ var injectorListener = function(request, sender, sendResponse) {
                     chrome.tabs.query({
                         active: true
                     }, function(tabs) {
-                        chrome.extension.sendMessage('gephjjdbcmmbnkdinjfhbjninhmbheeh', {
+                        chrome.extension.sendMessage(chrome.runtime.id, {
                             you_can: 'style_for_tab'
                         }, function(response) {});
                     });
@@ -82,7 +52,7 @@ var injectorListener = function(request, sender, sendResponse) {
                     chrome.tabs.query({
                         active: true,
                     }, function(tabs) {
-                        chrome.extension.sendMessage('gephjjdbcmmbnkdinjfhbjninhmbheeh', {
+                        chrome.extension.sendMessage(chrome.runtime.id, {
                             you_can: 'pimp'
                         }, function(response) {});
                     });
@@ -90,10 +60,9 @@ var injectorListener = function(request, sender, sendResponse) {
                 } else {
                     if (localStorage.getItem('pimp_always') == '1') {
                         console.log("Yes you can!");
-
                         chrome.tabs.sendMessage(sender.tab.id, {
                             you_can: 'pimp'
-                        });
+                        }, function(response){});
                     }
 
                 }
@@ -101,14 +70,8 @@ var injectorListener = function(request, sender, sendResponse) {
                 break;
         }
     } else {
-        console.error("No request.can_i!");
+        console.error("No request.can_i or request.can_i_haz!", request, sender);
     }
 };
 
-chrome.runtime.onMessage.addListener(injectorListener);
-
-chrome.browserAction.onClicked.addListener(function() {
-    setTimeout(function() {
-        localStorage.setItem('lastOpened', new Date().getTime());
-    }, 2000);
-});
+chrome.extension.onMessage.addListener(injectorListener);
