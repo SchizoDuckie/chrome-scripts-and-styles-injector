@@ -5,3 +5,19 @@ html > body {
 #mainFooter {
 	display:none;
 }
+* {
+	font-family: sans-serif;
+}
+body { font-family: sans-serif !important; margin:0; padding: 0; width: 600px !important; background-color:white; overflow-x:hidden;}
+div#mainHeader, div#mainFooter { display:none !important; }
+div#mainContent { padding:0; min-height: initial; background-color:white;  }
+.Header, .Record, .Grid { width: initial }
+input.required.arbeidOmschrijving { width: 100% !important; float:left; } 
+table.Grid th:nth-child(1), table.Grid th:nth-child(6), table.Grid th:nth-child(7), table.Grid th:nth-child(8) { display: none; }
+table.Grid td:nth-child(1), table.Grid td:nth-child(6), table.Grid td:nth-child(7), table.Grid td:nth-child(8) { display: none; }
+#mainContent > p { display:none; }
+th:last-child { overflow: hidden; font-size: 9px; -webkit-transform: rotate(-90deg) translateX(-2px)translateY(-8px); padding-top: 20px;}
+#mainContent h2 { display:none; } 
+th, span, input { font-family: sans-serif} 
+input[id^="arbeidfacturabel_"] { display:block; width: 30px; float:left; }
+label[for^="arbeidfacturabel_"] { display:inline-block; float: left; 

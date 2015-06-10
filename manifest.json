@@ -9,9 +9,16 @@
             "*://tr.samson-it.nl/tijdregistratie/dag.php*",
             "*://support.samson-it.nl/"
         ],
-        "js": ["script.js"],
-        "all_frames": true
+        "all_frames": true,
+        "css": ["select2.min.css"],
+        "js": ["listener.js"],
+        "run_at": "document_idle"
     }],
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
     "browser_action": {
         "default_icon": "logo.png",
         "default_popup": "minitr.html"
@@ -20,5 +27,5 @@
     "icons": {
         "48": "logo.png"
     },
-    "web_accessible_resources": ["select2.png", "select2-spinner.gif", "script.js", "select2.min.js", "select2.min.css", "go.js"]
+    "web_accessible_resources": ["pimp-tr.js", "pimp.css", "select2.png", "select2-spinner.gif", "script.js", "select2.min.js", "select2.min.css", "go.js"]
 }

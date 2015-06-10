@@ -9,15 +9,18 @@
 
 <body>
 
+<h1></h1>
+
 <div class="container">
 	<div class="row clearfix">
 		<div class="col-md-12 column">
-			<div class="jumbotron">
+			<div class="jumbotron" style="overflow:hidden; position: relative;">
+				<img style='position: absolute; right:0px; bottom:0px; opacity: 0.3;' src='xtodaz.png'>
 				<h1>
-					Hello, world!
+					Pimp My TR
 				</h1>
 				<p>
-					Een super ranzige maar handige plugin om het bijhouden van je TR wat te vergemakkelijken. Injecteert Select2's op de dag registratie pagina en biedt handige auto-reminders!
+					Een super ranzige maar handige plugin om het bijhouden van je TR wat te vergemakkelijken. Injecteert Select2's op de dag registratie pagina en biedt straks handige auto-reminders!
 				</p>
 			</div>
 		</div>
@@ -31,18 +34,18 @@
 				Als je deze optie uitzet draait pimp-my-tr alleen als je op het <img src='logo.png'> icoon in je adresbalk drukt. http://tr.samson-it.nl/tijdregistratie/dag.php wordt dan *niet* gepimped!
 			</p>
 			<p>
-				<label for="checkme"><input type="checkbox" value="1" onclick="localStorage.setItem('pimp_always', this.checked ? this.value : false)" id='checkme'>Altijd select2's en functionaliteit injecteren op tr.samson-it.nl</label>
+				<label for="checkme"><input type="checkbox" value="1" id='checkme'>Altijd select2's en functionaliteit injecteren op tr.samson-it.nl</label>
 			</p>
 		</div>
 		<div class="col-md-4 column">
 			<h2>
-				Heading
+				No more Tahoma!
 			</h2>
 			<p>
-				Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+				Vervangt Tahoma altijd overal door een sans-serif font.
 			</p>
 			<p>
-				<a class="btn" href="#">View details »</a>
+				<label for="tahoma"><input type="checkbox" value="1" onclick="localStorage.setItem('no_tahoma', this.checked ? this.value : false)" id='tahoma'>Altijd Tahoma vervangen door Sans-Serif</label>
 			</p>
 		</div>
 		<div class="col-md-4 column">

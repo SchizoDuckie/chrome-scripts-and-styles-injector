@@ -9,7 +9,7 @@ try {
     // and hide columns.
 
     isExtension = true;
-    
+
 
     console.log("Yepz. Commence styling.");
     var c = document.createElement('style');
@@ -33,19 +33,7 @@ try {
     document.body.appendChild(c);
 }
 
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        console.log(sender.tab ?
-            "from a content script:" + sender.tab.url :
-            "from the extension");
-        console.log("request", sender);
-        if (request.greeting == "hello")
-            sendResponse({
-                farewell: "goodbye"
-            });
-    });
-
-
+var storage = chrome.storage.local;
 
 storage.get('pimp_always', function(value) {
     // no pimping if the setting has been disabled.

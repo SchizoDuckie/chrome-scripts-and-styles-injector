@@ -1,17 +1,21 @@
+if (!localStorage.getItem('pimp_always')) {
+    localStorage.setItem('pimp_always', 1);
+}
+if (!localStorage.getItem('tahoma')) {
+    localStorage.setItem('tahoma', 1);
+}
 window.onload = function() {
 
-    chrome.storage.local.get('pimp_always', function(val) {
-        console.log("Received pimp_always: ", val);
-        document.getElementById('checkme').checked = val.pimp_always;
-    });
+    document.getElementById('checkme').checked = localStorage.getItem('pimp_always');
+    document.getElementById('tahoma').checked = localStorage.getItem('tahoma');
+
 
     document.getElementById('checkme').onclick = function() {
-        chrome.storage.local.set({
-            'pimp_always': this.checked
-        }, function() {
-            console.log("Setting saved.");
-        });
+        localStorage.setItem('pimp_always', this.checked ? 1 : 0);
+    };
 
+    document.getElementById('tahoma').onclick = function() {
+        localStorage.setItem('tahoma', this.checked ? 1 : 0);
     };
 
 
