@@ -45,7 +45,7 @@ var injectorListener = function(request, sender, sendResponse) {
                     }
                 }
                 break;
-            case 'pimp':
+            case 'pimp_tr':
                 if (!sender.tab) {
                     console.log("Yes you can!");
 
@@ -53,7 +53,7 @@ var injectorListener = function(request, sender, sendResponse) {
                         active: true,
                     }, function(tabs) {
                         chrome.extension.sendMessage(chrome.runtime.id, {
-                            you_can: 'pimp'
+                            you_can: 'pimp_tr'
                         }, function(response) {});
                     });
 
@@ -61,12 +61,17 @@ var injectorListener = function(request, sender, sendResponse) {
                     if (localStorage.getItem('pimp_always') == '1') {
                         console.log("Yes you can!");
                         chrome.tabs.sendMessage(sender.tab.id, {
-                            you_can: 'pimp'
+                            you_can: 'pimp_tr'
                         }, function(response){});
                     }
 
                 }
 
+                break;
+             case 'pimp_mantis':
+                chrome.tabs.sendMessage(sender.tab.id, {
+                    you_can: 'pimp_mantis'
+                }, function(response) {});
                 break;
         }
     } else {

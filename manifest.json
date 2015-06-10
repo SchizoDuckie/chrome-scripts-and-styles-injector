@@ -7,7 +7,7 @@
     "content_scripts": [{
         "matches": [
             "*://tr.samson-it.nl/tijdregistratie/dag.php*",
-            "*://support.samson-it.nl/"
+            "*://support.samson-it.nl/*"
         ],
         "all_frames": true,
         "css": ["select2.min.css"],
@@ -28,5 +28,5 @@
     "icons": {
         "48": "logo.png"
     },
-    "web_accessible_resources": ["pimp-tr.js", "pimp.css", "select2.png", "select2-spinner.gif", "script.js", "select2.min.js", "select2.min.css", "go.js"]
+    "web_accessible_resources": ["pimp-tr.js", "pimp-mantis.js", "pimp.css", "jquery.min.js", "select2.png", "select2-spinner.gif", "script.js", "select2.min.js", "select2.min.css", "go.js"]
 }
