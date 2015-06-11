@@ -27,12 +27,12 @@ var fuzzy = function(term, text, opt) {
 
 $('select:not(.projecten)').select2({
 	matcher: fuzzy,
-	width: '49%'
+	width: '205px'
 });
 
 $('select.projecten').select2({
 	matcher: fuzzy,
-	width: '100%'
+	width: '420px'
 });
 
 $('select.projecten').change(function(e) {
