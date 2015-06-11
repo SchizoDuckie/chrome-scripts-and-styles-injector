@@ -1,34 +1,127 @@
 html > body {
-	width: auto;
+    width: auto;
 }
 
 #mainFooter {
-	display:none;
+    display: none;
 }
-* {
-	font-family: sans-serif;
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 600px !important;
+    background-color: white;
+    overflow-x: hidden;
 }
-body { font-family: sans-serif !important; margin:0; padding: 0; width: 600px !important; background-color:white; overflow-x:hidden;}
-div#mainHeader, div#mainFooter { display:none !important; }
-div#mainContent { padding:0; min-height: initial; background-color:white;  }
-.Header, .Record, .Grid { width: initial }
-input.required.arbeidOmschrijving { width: 100% !important; float:left; } 
-table.Grid th:nth-child(1), table.Grid th:nth-child(6), table.Grid th:nth-child(7), table.Grid th:nth-child(8) { display: none; }
-table.Grid td:nth-child(1), table.Grid td:nth-child(6), table.Grid td:nth-child(7), table.Grid td:nth-child(8) { display: none; }
-#mainContent > p { display:none; }
-th:last-child { overflow: hidden; font-size: 9px; -webkit-transform: rotate(-90deg) translateX(-2px)translateY(-8px); padding-top: 20px;}
-#mainContent h2 { display:none; } 
-th, span, input { font-family: sans-serif} 
-input[id^="arbeidfacturabel_"] { position: absolute; left:30px; width: 30px; margin-top:18px; z-index:2; -webkit-user-select: none;}
-label[for^="arbeidfacturabel_"] {  
-    padding:15px;
-    padding-left:38px;
+div#mainHeader, div#mainFooter {
+    display: none !important;
+}
+div#mainContent {
+    padding: 0;
+    min-height: initial;
+    background-color: white;
+}
+.Header, .Record, .Grid {
+    width: initial
+}
+th.HeaderLeft + th {
+    position: absolute;
+    text-align: right;
+    margin-top: 2px;
+    background-color: transparent;
+    font-size: 12px;
+    padding: 5px;
+    right: 0px;
+}
+input.required.arbeidOmschrijving {
+    width: 420px !important;
+    float: left;
+    margin-top: 5px;
+    padding: 2px;
+}
+table.Grid th:nth-child(1), table.Grid th:nth-child(6), table.Grid th:nth-child(7), table.Grid th:nth-child(8) {
+    display: none;
+}
+table.Grid td:nth-child(1), table.Grid td:nth-child(6), table.Grid td:nth-child(7), table.Grid td:nth-child(8) {
+    display: none;
+}
+#mainContent > p {
+    display: none;
+}
+th:last-child {
+    overflow: hidden;
+    font-size: 9px;
+    -webkit-transform: rotate(-90deg) translateX(-2px)translateY(-8px);
+    padding-top: 20px;
+}
+#mainContent h2 {
+    display: none;
+}
+input[id^="arbeidfacturabel_"] {
+    position: absolute;
+    left: 30px;
+    width: 30px;
+    margin-top: 18px;
+    z-index: 2;
+    -webkit-user-select: none;
+}
+label[for^="arbeidfacturabel_"] {
+    padding: 15px;
+    padding-left: 38px;
     position: absolute;
     left: 26px;
     display: inline-block;
     margin-top: 2px;
-    -webkit-appearance: button;
     z-index: 0;
     -webkit-user-select: none;
-    cursor:pointer;
+    cursor: pointer;
+}
+
+input[id^=arbeidCheckBox_Delete] {
+    position: absolute;
+    left: 39px;
+    z-index: 100;
+    margin-top: 82px;
+}
+input[id^=arbeidCheckBox_Delete]:after {
+    content: 'verwijder';
+    color: red;
+    margin-left: 21px;
+}
+
+.ui-dialog {
+    position: absolute;
+    padding: .2em;
+    width: 90% !important;
+    overflow: hidden;
+    left: 5% !important;
+}
+
+.ui-dialog-content {
+    height: 145px !important;
+}
+
+.select2-container.projecten {
+    margin-bottom: 5px;
+}
+
+input#onkostenRecordomschrijving {
+    width: 95% !important;
+}
+
+input.numberInput {
+    font-size: 18px;
+    width: 50px;
+    text-align: center;
+    line-height: 25px;
+    margin-top: 3px;
+}
+
+a.select2-choice {
+  color: black !important;
+  font-size: 13px;
+}
+
+.select2-result-label {
+  font-size: 13px;
 }

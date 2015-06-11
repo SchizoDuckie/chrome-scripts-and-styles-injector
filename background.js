@@ -5,7 +5,21 @@ var injectorListener = function(request, sender, sendResponse) {
         "from a content script:" + sender.tab.url :
         "from the extension");
     console.log("request", request, sender);
-
+    if (request.here_u_haz) {
+        switch (request.here_u_haz) {
+            case 'total_today':
+                var time = request.total_today.match(/([0-9]{2})u ([0-9]{2})m/).slice(1).join(':');
+                if (time[0] == '0') time = time.substr(1);
+                chrome.browserAction.setBadgeText({
+                    text: time
+                });
+                chrome.browserAction.setBadgeBackgroundColor({
+                    color: [25, 25, 25, 150]
+                });
+                //"0d 08u 32m in 10 regels"
+                break;
+        }
+    }
     if (request.can_i_haz) {
         switch (request.can_i_haz) {
             case 'active_ticket':
@@ -26,6 +40,26 @@ var injectorListener = function(request, sender, sendResponse) {
     }
     if (request.can_i) {
         switch (request.can_i) {
+            case 'override_tahoma':
+                if (!sender.tab) {
+                    console.log("Yes you can!");
+                    chrome.tabs.query({
+                        active: true
+                    }, function(tabs) {
+                        if (localStorage.getItem('tahoma') == '1') {
+                            chrome.extension.sendMessage(chrome.runtime.id, {
+                                you_can: 'override_tahoma'
+                            }, function(response) {});
+                        }
+                    });
+                } else {
+                    if (localStorage.getItem('tahoma') == '1') {
+                        chrome.tabs.sendMessage(sender.tab.id, {
+                            you_can: 'override_tahoma'
+                        });
+                    }
+                }
+                break;
             case 'style_for_tab':
                 if (!sender.tab) {
                     console.log("Yes you can!");
@@ -62,13 +96,13 @@ var injectorListener = function(request, sender, sendResponse) {
                         console.log("Yes you can!");
                         chrome.tabs.sendMessage(sender.tab.id, {
                             you_can: 'pimp_tr'
-                        }, function(response){});
+                        }, function(response) {});
                     }
 
                 }
 
                 break;
-             case 'pimp_mantis':
+            case 'pimp_mantis':
                 chrome.tabs.sendMessage(sender.tab.id, {
                     you_can: 'pimp_mantis'
                 }, function(response) {});
