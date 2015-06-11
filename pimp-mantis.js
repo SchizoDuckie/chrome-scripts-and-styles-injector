@@ -7,5 +7,9 @@ var fuzzy = function(term, text, opt) {
 
 $('.login-info-right select').select2({
     matcher: fuzzy,
-    width: 300
+    width: '300px',
+
 });
+
+$('.select2-choice').css({'text-align':'left'});
+//$('.select2-container .select2-choice div b').css({'content': '▼'});
