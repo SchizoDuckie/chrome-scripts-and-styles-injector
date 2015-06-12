@@ -133,9 +133,9 @@ if (window.location.href.indexOf('tr.samson-it.nl') > -1) {
         can_i_haz: 'active_ticket'
     });
 
-    chrome.runtime.sendMessage(chrome.runtime.id, {
-        can_i_haz: 'gitlab_history'
-    });
+    //chrome.runtime.sendMessage(chrome.runtime.id, {
+     //   can_i_haz: 'gitlab_history'
+    //});
     // send the total # of hours for today to the background page, to plot on the icon
     chrome.runtime.sendMessage(chrome.runtime.id, {
         here_u_haz: 'total_today',
