@@ -53,6 +53,7 @@ function override_tahoma() {
 }
 
 chrome.runtime.onMessage.addListener(function(message, sender) {
+    console.log(JSON.stringify(message));
     if (message.you_can) {
         switch (message.you_can) {
             case 'pimp_tr':
@@ -89,12 +90,28 @@ chrome.runtime.onMessage.addListener(function(message, sender) {
                 }, 500);
 
                 break;
-            default:
-                console.error("Unhandled here u haz!", message);
+            case 'gitlab_history':
+                console.info("REceived gitlab history!", message);
+                var dl = '<datalist id="dl">';
+
+                message.history.map(function(message) {
+                    dl += "<option value='" + escape(message) + "'>";
+                });
+
+                document.body.innerHTML += dl + "</datalist>";
+                console.log(dl);
+                var ao = document.querySelectorAll('.arbeidOmschrijving');
+                ao[ao.length - 1].setAttribute('list', 'dl');
+                delete ao[ao.length - 1].type;
                 break;
+            default:
+                console.error("No understandie here u haz", message);
+                break;
+
         }
     } else {
-        //console.error("Unhandled message came in!", JSON.stringify(message));
+
+        console.error("Unhandled message came in!", JSON.stringify(message));
     }
 });
 
@@ -116,6 +133,10 @@ if (window.location.href.indexOf('tr.samson-it.nl') > -1) {
         can_i_haz: 'active_ticket'
     });
 
+    chrome.runtime.sendMessage(chrome.runtime.id, {
+        can_i_haz: 'gitlab_history'
+    });
+    // send the total # of hours for today to the background page, to plot on the icon
     chrome.runtime.sendMessage(chrome.runtime.id, {
         here_u_haz: 'total_today',
         total_today: document.querySelector('.HeaderLeft + th').innerText
