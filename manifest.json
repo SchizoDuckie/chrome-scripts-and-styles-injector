@@ -28,5 +28,5 @@
     "icons": {
         "48": "logo.png"
     },
-    "web_accessible_resources": ["pimp-tr.js", "pimp-mantis.js", "pimp.css", "jquery.min.js", "select2.png", "select2-spinner.gif", "script.js", "select2.min.js", "select2.min.css", "go.js"]
+    "web_accessible_resources": ["pimp-tr.js", "tahoma-override.css", "pimp-mantis.js", "pimp.css", "jquery.min.js", "select2.png", "select2-spinner.gif", "script.js", "select2.min.js", "select2.min.css", "go.js"]
 }
